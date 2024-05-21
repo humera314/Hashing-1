@@ -1,0 +1,37 @@
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        '''
+        split the words in s
+        map words to pattern 
+        check if word is mapped to the same pattern
+
+        '''
+        words = s.split()  # Split the string        
+        # check for same len
+        if len(pattern) != len(words):
+            return False
+        
+       
+        char_to_word = {}
+        word_to_char = {}
+        
+  
+        for char, word in zip(pattern, words):
+            if char in char_to_word:
+                # Check if the existing mapping for char matches the current word
+                if char_to_word[char] != word:
+                    return False
+            else:
+                # Add the mapping from char to word
+                char_to_word[char] = word
+            
+            if word in word_to_char:
+                # Check if the existing mapping for word matches the current char
+                if word_to_char[word] != char:
+                    return False
+            else:
+                # Add the mapping from word to char
+                word_to_char[word] = char
+        
+        return True
+        
